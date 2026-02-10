@@ -9,7 +9,7 @@
 import { initTRPC, TRPCError } from "@trpc/server";
 import superjson from "superjson";
 import { ZodError } from "zod";
-import { auth } from "@clerk/nextjs/server";
+import { auth, currentUser } from "@clerk/nextjs/server";
 
 import { db } from "~/server/db";
 
@@ -110,14 +110,39 @@ const timingMiddleware = t.middleware(async ({ next, path }) => {
 export const publicProcedure = t.procedure.use(timingMiddleware);
 
 /**
- * Auth middleware — enforces that a valid Clerk userId exists in context.
- * Throws UNAUTHORIZED if the user is not logged in.
+ * Auth middleware — enforces that a valid Clerk userId exists in context
+ * AND ensures the user row exists in our database (lazy sync).
+ *
+ * This eliminates race conditions where a query runs before the user
+ * has been upserted into the DB (e.g., dashboard loads before getProfile).
  */
 const enforceAuth = t.middleware(async ({ ctx, next }) => {
   if (!ctx.userId) {
     throw new TRPCError({
       code: "UNAUTHORIZED",
       message: "You must be signed in to perform this action.",
+    });
+  }
+
+  // Ensure user exists in our DB — lazy upsert on every protected call.
+  // The upsert is idempotent and fast (single indexed lookup on clerkId).
+  const clerkUser = await currentUser();
+  if (clerkUser) {
+    await ctx.db.user.upsert({
+      where: { clerkId: clerkUser.id },
+      create: {
+        id: clerkUser.id,
+        clerkId: clerkUser.id,
+        email: clerkUser.emailAddresses[0]?.emailAddress ?? "",
+        name: clerkUser.fullName,
+        imageUrl: clerkUser.imageUrl,
+        totalPoints: 0,
+      },
+      update: {
+        email: clerkUser.emailAddresses[0]?.emailAddress ?? "",
+        name: clerkUser.fullName,
+        imageUrl: clerkUser.imageUrl,
+      },
     });
   }
 

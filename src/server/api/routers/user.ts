@@ -1,40 +1,16 @@
 import { createTRPCRouter, protectedProcedure } from "~/server/api/trpc";
-import { currentUser } from "@clerk/nextjs/server";
-import { TRPCError } from "@trpc/server";
 
 export const userRouter = createTRPCRouter({
   /**
-   * Get or create user profile.
+   * Get the current user's profile.
    *
-   * Syncs Clerk user data to our DB on first access.
-   * Uses upsert to handle both new and returning users.
+   * The enforceAuth middleware guarantees the user row already exists
+   * in our DB (lazy upsert on every protected call), so a simple
+   * findUnique is sufficient here.
    */
   getProfile: protectedProcedure.query(async ({ ctx }) => {
-    const clerkUser = await currentUser();
-
-    if (!clerkUser) {
-      throw new TRPCError({
-        code: "UNAUTHORIZED",
-        message: "Could not retrieve user profile from Clerk.",
-      });
-    }
-
-    // Upsert: create user if first visit, update if returning
-    const user = await ctx.db.user.upsert({
-      where: { clerkId: clerkUser.id },
-      create: {
-        id: clerkUser.id, // Use Clerk ID as our DB ID for simplicity
-        clerkId: clerkUser.id,
-        email: clerkUser.emailAddresses[0]?.emailAddress ?? "",
-        name: clerkUser.fullName,
-        imageUrl: clerkUser.imageUrl,
-        totalPoints: 0,
-      },
-      update: {
-        email: clerkUser.emailAddresses[0]?.emailAddress ?? "",
-        name: clerkUser.fullName,
-        imageUrl: clerkUser.imageUrl,
-      },
+    const user = await ctx.db.user.findUnique({
+      where: { id: ctx.userId },
     });
 
     return user;
