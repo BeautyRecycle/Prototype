@@ -20,65 +20,61 @@ interface ScannerProps {
  */
 export default function Scanner({ onScan, isActive = true }: ScannerProps) {
   const scannerRef = useRef<Html5Qrcode | null>(null);
-  const isRunningRef = useRef(false);
-
-  const startScanner = useCallback(async () => {
-    if (isRunningRef.current || !isActive) return;
-
-    try {
-      const scanner = new Html5Qrcode("scanner-region");
-      scannerRef.current = scanner;
-
-      await scanner.start(
-        { facingMode: "environment" },
-        {
-          fps: 10,
-          qrbox: { width: 250, height: 250 },
-          aspectRatio: 1,
-        },
-        (decodedText) => {
-          onScan(decodedText);
-        },
-        () => {
-          // Ignore scan failures (expected for non-QR frames)
-        },
-      );
-
-      isRunningRef.current = true;
-    } catch (err) {
-      console.error("[Scanner] Failed to start camera:", err);
-    }
-  }, [onScan, isActive]);
 
   useEffect(() => {
-    void startScanner();
+    if (!isActive) return;
 
-    // 🔴 CRITICAL: Stop camera on unmount to prevent Chrome lock
-    return () => {
-      if (scannerRef.current && isRunningRef.current) {
-        scannerRef.current
-          .stop()
-          .then(() => {
-            isRunningRef.current = false;
-            scannerRef.current = null;
-          })
-          .catch(() => {
-            // Ignore stop errors during cleanup
-          });
+    const elementId = "scanner-region";
+    // Create instance inside effect to ensure ownership
+    const scanner = new Html5Qrcode(elementId);
+    scannerRef.current = scanner;
+
+    let isMounted = true;
+
+    const start = async () => {
+      try {
+        await scanner.start(
+          { facingMode: "environment" },
+          {
+            fps: 10,
+            qrbox: { width: 250, height: 250 },
+            aspectRatio: 1,
+          },
+          (decodedText) => {
+            if (isMounted) onScan(decodedText);
+          },
+          () => {
+            // ignore failures
+          },
+        );
+      } catch (err) {
+        if (isMounted) {
+          console.warn("Scanner start failed", err);
+        }
       }
     };
-  }, [startScanner]);
+
+    void start();
+
+    return () => {
+      isMounted = false;
+      // Stop and clear to remove the video element
+      scanner
+        .stop()
+        .then(() => scanner.clear())
+        .catch(() => {
+          // If stop fails (e.g. never started), still try to clear
+          scanner.clear().catch(() => {});
+        });
+    };
+  }, [isActive, onScan]);
 
   return (
-    <div className="mx-auto w-full max-w-md">
+    <div className="mx-auto w-full h-full min-h-[400px]">
       <div
         id="scanner-region"
-        className="border-eco-primary-200 bg-eco-neutral-900 overflow-hidden rounded-2xl border-2"
-        style={{ minHeight: 300 }}
+        className="overflow-hidden rounded-[1.5rem] h-full min-h-[400px]"
       />
-      <p className="text-eco-neutral-500 mt-3 text-center text-sm">
-        Point your camera at a QR code on any cosmetic package
-      </p>
     </div>
   );
 }
