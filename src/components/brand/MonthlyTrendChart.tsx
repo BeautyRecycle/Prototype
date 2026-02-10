@@ -55,7 +55,7 @@ export function MonthlyTrendChart() {
 
           {/* Line */}
           <path
-            d={`M ${points[0].x} ${100 - points[0].y} L ${svgPoints}`}
+            d={`M ${points[0]?.x ?? 0} ${100 - (points[0]?.y ?? 0)} L ${svgPoints}`}
             fill="none"
             stroke="url(#line-gradient)"
             strokeWidth="3"
