@@ -38,7 +38,7 @@ export default function Scanner({ onScan, isActive = true }: ScannerProps) {
   useEffect(() => {
     if (pathname !== initialPathRef.current) {
       console.log("[Scanner] Route changed, stopping camera");
-      stopCamera();
+      void stopCamera();
     }
   }, [pathname]);
 
