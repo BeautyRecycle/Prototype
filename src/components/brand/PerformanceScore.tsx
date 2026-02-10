@@ -23,7 +23,7 @@ export function PerformanceScore() {
       </div>
 
       <p className="text-eco-neutral-600 mt-4 text-sm font-medium">
-        Your brand is in the top 10% of sustainable beauty practices! 💖
+        Your are in the top 10% of sustainable beauty practices! 💖
       </p>
     </div>
   );
