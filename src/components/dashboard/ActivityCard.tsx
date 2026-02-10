@@ -3,7 +3,7 @@
 import { formatDistanceToNow } from "date-fns";
 import { FadeIn } from "~/components/animations/MotionPrimitives";
 import { type Material } from "~/types/domain";
-import { Flame, Recycle, Package, Box } from "lucide-react";
+import { Flame, Recycle, Package } from "lucide-react";
 
 interface ActivityCardProps {
   material: Material;

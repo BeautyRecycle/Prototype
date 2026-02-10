@@ -1,6 +1,7 @@
 "use client";
 
 import { api } from "~/trpc/react";
+import { type Material } from "~/types/domain";
 import { GlowStatCard } from "~/components/dashboard/GlowStatCard";
 import { ActivityCard } from "~/components/dashboard/ActivityCard";
 import { ImpactBanner } from "~/components/dashboard/ImpactBanner";
@@ -125,7 +126,7 @@ export default function DashboardPage() {
               {recentScans.map((scan) => (
                 <ActivityCard
                   key={scan.id}
-                  material={scan.material as any}
+                  material={scan.material as Material}
                   itemName={scan.packageId || "Unknown Package"}
                   createdAt={scan.createdAt}
                   pointsEarned={scan.pointsEarned}
@@ -149,60 +150,6 @@ export default function DashboardPage() {
 }
 
 // ── Inline SVG Icons ──
-
-function LeafIcon() {
-  return (
-    <svg
-      className="h-7 w-7"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-      strokeWidth={2}
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10c1.85 0 3.58-.5 5.07-1.38C14.82 18.38 13 15.44 13 12c0-3.44 1.82-6.38 4.07-8.62A9.96 9.96 0 0012 2z"
-      />
-    </svg>
-  );
-}
-
-function PackageIcon() {
-  return (
-    <svg
-      className="h-7 w-7"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-      strokeWidth={2}
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"
-      />
-    </svg>
-  );
-}
-
-function BoltIcon() {
-  return (
-    <svg
-      className="h-7 w-7"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-      strokeWidth={2}
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M13 10V3L4 14h7v7l9-11h-7z"
-      />
-    </svg>
-  );
-}
 
 function DashboardSkeleton() {
   return (
