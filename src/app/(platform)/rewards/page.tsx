@@ -63,9 +63,7 @@ export default function RewardsPage() {
         </div>
       </FadeIn>
 
-      <StaggerContainer
-        className="grid gap-6 sm:grid-cols-2 lg:grid-cols-2"
-      >
+      <StaggerContainer className="grid gap-6 sm:grid-cols-2 lg:grid-cols-2">
         {rewards?.map((reward) => (
           <StaggerItem key={reward.id}>
             <RewardCard
