@@ -6,26 +6,35 @@ import { UserButton, SignedIn, SignedOut } from "@clerk/nextjs";
 import { Button } from "~/components/ui/Button";
 
 const NAV_LINKS = [
+  { href: "/", label: "Home", icon: "🏠" },
   { href: "/scan", label: "Scan", icon: "📷" },
-  { href: "/dashboard", label: "Dashboard", icon: "📊" },
   { href: "/rewards", label: "Rewards", icon: "🎁" },
+  { href: "/dashboard", label: "Map", icon: "🗺️" },
+  { href: "/dashboard", label: "Brand", icon: "✨" },
 ] as const;
 
 export function Navbar() {
   const pathname = usePathname();
 
   return (
-    <header className="border-eco-neutral-200 sticky top-0 z-50 border-b bg-white/80 backdrop-blur-md">
+    <header className="border-eco-neutral-200 sticky top-0 z-50 border-b bg-white/90 backdrop-blur-md">
       <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Logo */}
         <Link
           href="/"
-          className="text-eco-primary-700 flex items-center gap-2 text-lg font-bold"
+          className="flex items-center gap-2"
         >
-          <span className="text-2xl" aria-hidden="true">
-            ♻️
-          </span>
-          <span className="hidden sm:inline">Eco Beauty</span>
+          <div className="bg-gradient-to-br from-eco-primary-400 to-eco-primary-600 flex h-10 w-10 items-center justify-center rounded-xl text-xl shadow-md">
+            🌸
+          </div>
+          <div className="hidden sm:block">
+            <div className="text-eco-primary-700 text-lg font-bold leading-tight">
+              EcoGlow
+            </div>
+            <div className="text-eco-primary-500 text-xs font-medium">
+              Sustainable Beauty Returns
+            </div>
+          </div>
         </Link>
 
         {/* Nav Links */}
