@@ -73,7 +73,7 @@ export default function LandingPage() {
 
       {/* Hero */}
       <section className="from-eco-primary-50 to-eco-secondary-50 relative overflow-hidden bg-gradient-to-br via-white px-4 py-24 sm:py-32">
-        <div className="mx-auto max-w-4xl text-center">
+        <div className="relative z-10 mx-auto max-w-4xl text-center">
           <FadeIn>
             <motion.div
               initial={{ scale: 0 }}
@@ -115,7 +115,7 @@ export default function LandingPage() {
                     Start Recycling →
                   </Button>
                 </Link>
-                <Link href="#how-it-works">
+                <Link href="/how-it-works">
                   <Button variant="outline" size="lg">
                     How It Works
                   </Button>
@@ -139,11 +139,11 @@ export default function LandingPage() {
 
         {/* Decorative gradient orbs */}
         <div
-          className="bg-eco-primary-200/30 absolute -top-24 left-1/4 h-96 w-96 rounded-full blur-3xl"
+          className="bg-eco-primary-200/30 pointer-events-none absolute -top-24 left-1/4 h-96 w-96 rounded-full blur-3xl"
           aria-hidden="true"
         />
         <div
-          className="bg-eco-secondary-200/30 absolute right-1/4 -bottom-24 h-96 w-96 rounded-full blur-3xl"
+          className="bg-eco-secondary-200/30 pointer-events-none absolute right-1/4 -bottom-24 h-96 w-96 rounded-full blur-3xl"
           aria-hidden="true"
         />
       </section>
