@@ -1,9 +1,11 @@
 # Active Context
 
 ## Current Focus
+
 Fixing build and linting errors to ensure a stable baseline for development.
 
 ## Recent Changes
+
 - **Design Update:**
   - Changing icon colors to specific brand colors: Background `#FFA1AD`, Icon `#A50036`.
 - **Fixed ESLint errors:**
@@ -14,5 +16,6 @@ Fixing build and linting errors to ensure a stable baseline for development.
 - **Verified Build:** Successfully ran `pnpm run build`.
 
 ## Next Steps
+
 - Continue development of features.
 - Ensure type safety in mock data assignments.
