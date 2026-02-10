@@ -15,11 +15,6 @@ export function BrandStatCard({
   icon: Icon,
   color,
 }: BrandStatCardProps) {
-  const styles = {
-    pink: "bg-pink-200 text-pink-900 border-pink-200",
-    yellow: "bg-yellow-200 text-yellow-900 border-yellow-200",
-  };
-
   const bgStyles = {
     pink: "bg-pink-100",
     yellow: "bg-yellow-100",

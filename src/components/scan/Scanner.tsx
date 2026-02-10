@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useCallback } from "react";
+import { useEffect, useRef } from "react";
 import { Html5Qrcode } from "html5-qrcode";
 
 interface ScannerProps {
@@ -66,7 +66,7 @@ export default function Scanner({ onScan, isActive = true }: ScannerProps) {
           // If stop fails (e.g. never started), still try to clear
           try {
             scanner.clear();
-          } catch (_) {
+          } catch {
             // ignore
           }
         });

@@ -1,5 +1,4 @@
-import { TreeDeciduous, Car, Lightbulb, Recycle, Sparkles } from "lucide-react";
-import { Card } from "~/components/ui/Card";
+import { TreeDeciduous, Car, Lightbulb, Recycle, Sparkles, type LucideIcon } from "lucide-react";
 
 export function ImpactSection() {
   return (
@@ -40,7 +39,7 @@ function ImpactItem({
   text,
   iconColor,
 }: {
-  icon: any;
+  icon: LucideIcon;
   text: string;
   iconColor: string;
 }) {
