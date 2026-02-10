@@ -24,12 +24,18 @@ export function ActivityCard({
   const getIcon = () => {
     const m = material.toUpperCase();
     if (m === "PET" || m === "HDPE" || m === "PLASTIC") {
-      return <Flame className="h-6 w-6 text-orange-500 fill-orange-500" />; // Flame (filled) for plastic
+      return <Flame className="h-6 w-6 fill-orange-500 text-orange-500" />; // Flame (filled) for plastic
     }
-    if (m === "GLASS" || m === "ALUMINUM" || m === "METAL" || m === "CARDBOARD" || m === "PAPER") {
+    if (
+      m === "GLASS" ||
+      m === "ALUMINUM" ||
+      m === "METAL" ||
+      m === "CARDBOARD" ||
+      m === "PAPER"
+    ) {
       return <Recycle className="h-6 w-6 text-emerald-600" />; // Green Recycle for others
     }
-    return <Package className="h-6 w-6 text-eco-neutral-600" />;
+    return <Package className="text-eco-neutral-600 h-6 w-6" />;
   };
 
   const getIconBg = () => {
@@ -37,7 +43,12 @@ export function ActivityCard({
     if (m === "PET" || m === "HDPE" || m === "PLASTIC") {
       return "bg-amber-100"; // Yellow/Amber
     }
-    if (m === "GLASS" || m === "ALUMINUM" || m === "CARDBOARD" || m === "PAPER") {
+    if (
+      m === "GLASS" ||
+      m === "ALUMINUM" ||
+      m === "CARDBOARD" ||
+      m === "PAPER"
+    ) {
       return "bg-pink-100"; // Pink
     }
     return "bg-eco-neutral-100";

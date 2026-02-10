@@ -121,7 +121,7 @@ export default function DashboardPage() {
             Recent Activity
           </h2>
           {recentScans.length > 0 ? (
-            <div className="grid gap-4 md:gap-6 sm:grid-cols-3">
+            <div className="grid gap-4 sm:grid-cols-3 md:gap-6">
               {recentScans.map((scan) => (
                 <ActivityCard
                   key={scan.id}
