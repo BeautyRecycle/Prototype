@@ -43,7 +43,7 @@ export function GlowStatCard({
       case "gradient":
         return "bg-white/20 text-white backdrop-blur-sm";
       case "pink":
-        return "bg-eco-primary-100 text-eco-primary-600";
+        return "bg-[#FFA1AD] text-[#A50036]";
       case "yellow":
         return "bg-eco-secondary-100 text-eco-secondary-600";
       default:

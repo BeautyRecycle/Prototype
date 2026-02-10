@@ -33,7 +33,7 @@ export function ActivityCard({
       m === "CARDBOARD" ||
       m === "PAPER"
     ) {
-      return <Recycle className="h-6 w-6 text-emerald-600" />; // Green Recycle for others
+      return <Recycle className="h-6 w-6 text-[#A50036]" />; // Brand color Recycle for others
     }
     return <Package className="text-eco-neutral-600 h-6 w-6" />;
   };
@@ -49,7 +49,7 @@ export function ActivityCard({
       m === "CARDBOARD" ||
       m === "PAPER"
     ) {
-      return "bg-pink-100"; // Pink
+      return "bg-[#FFA1AD]"; // Brand Pink
     }
     return "bg-eco-neutral-100";
   };

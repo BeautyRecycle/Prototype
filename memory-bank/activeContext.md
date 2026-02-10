@@ -4,6 +4,8 @@
 Fixing build and linting errors to ensure a stable baseline for development.
 
 ## Recent Changes
+- **Design Update:**
+  - Changing icon colors to specific brand colors: Background `#FFA1AD`, Icon `#A50036`.
 - **Fixed ESLint errors:**
   - Resolved `any` type usage in `dashboard/page.tsx` by casting to `Material`.
   - Removed unused icon components in `dashboard/page.tsx`.
