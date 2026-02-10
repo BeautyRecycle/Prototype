@@ -71,10 +71,16 @@ export function ImpactChart({ data }: ImpactChartProps) {
               border: "1px solid #e7e5e4",
               boxShadow: "0 4px 6px -1px rgba(0,0,0,0.1)",
             }}
-            formatter={(value: number) => [
-              `${value.toFixed(2)} kg`,
-              "CO₂ Saved",
-            ]}
+            formatter={(
+              value: number | string | Array<number | string> | undefined,
+            ) => {
+              if (value === undefined) return ["0.00 kg", "CO₂ Saved"];
+              const numValue = Number(value);
+              return [
+                `${isNaN(numValue) ? "0.00" : numValue.toFixed(2)} kg`,
+                "CO₂ Saved",
+              ];
+            }}
           />
           <Area
             type="monotone"

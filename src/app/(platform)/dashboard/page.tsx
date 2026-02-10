@@ -4,6 +4,7 @@ import { api } from "~/trpc/react";
 import { GlowStatCard } from "~/components/dashboard/GlowStatCard";
 import { ActivityCard } from "~/components/dashboard/ActivityCard";
 import { ImpactBanner } from "~/components/dashboard/ImpactBanner";
+import { Package, Leaf, Zap } from "lucide-react";
 import {
   FadeIn,
   StaggerContainer,
@@ -34,16 +35,18 @@ export default function DashboardPage() {
   const energyGeneratedKwh = Math.round(plasticSavedKg * 10 * 100) / 100;
 
   return (
-    <div className="from-eco-primary-50 to-eco-secondary-50 min-h-screen bg-linear-to-br">
+    <div className="from-eco-primary-50 to-eco-secondary-50 min-h-screen bg-gradient-to-br">
       <div className="mx-auto max-w-6xl px-4 py-8">
         {/* Welcome Header */}
         <FadeIn>
-          <h1 className="text-eco-primary-800 mb-2 text-4xl font-bold">
-            Welcome Back, Beauty!
-          </h1>
-          <p className="text-eco-primary-600 mb-8 text-lg">
-            Here&apos;s your gorgeous impact so far ✨
-          </p>
+          <div className="mb-10">
+            <h1 className="text-eco-primary-900 mb-2 text-4xl font-bold tracking-tight">
+              Welcome Back, Beauty!
+            </h1>
+            <p className="text-eco-primary-600 text-lg font-medium">
+              Here&apos;s your gorgeous impact so far ✨
+            </p>
+          </div>
         </FadeIn>
 
         {/* Top Stat Cards */}
@@ -52,7 +55,7 @@ export default function DashboardPage() {
             <GlowStatCard
               title="Packages Returned"
               value={stats?.totalScans ?? 0}
-              icon={<PackageIcon />}
+              icon={<Package className="text-white" />}
               variant="gradient"
               message="Keep glowing, gorgeous! 💖"
             />
@@ -63,7 +66,7 @@ export default function DashboardPage() {
               value={plasticSavedKg}
               suffix=" kg"
               decimals={1}
-              icon={<LeafIcon />}
+              icon={<Leaf />}
               variant="pink"
             />
           </StaggerItem>
@@ -73,7 +76,7 @@ export default function DashboardPage() {
               value={energyGeneratedKwh}
               suffix=" kWh"
               decimals={1}
-              icon={<BoltIcon />}
+              icon={<Zap />}
               variant="yellow"
             />
           </StaggerItem>
@@ -90,7 +93,7 @@ export default function DashboardPage() {
             Recent Activity
           </h2>
           {recentScans.length > 0 ? (
-            <div className="space-y-4">
+            <div className="grid gap-6 sm:grid-cols-3">
               {recentScans.map((scan) => (
                 <ActivityCard
                   key={scan.id}
