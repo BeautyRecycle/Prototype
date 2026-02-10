@@ -3,7 +3,7 @@
 import { formatDistanceToNow } from "date-fns";
 import { FadeIn } from "~/components/animations/MotionPrimitives";
 import { type Material } from "~/types/domain";
-import { Flame, Recycle, Package, Box } from "lucide-react";
+import { Flame, Recycle, Package } from "lucide-react";
 
 interface ActivityCardProps {
   material: Material;
@@ -24,13 +24,16 @@ export function ActivityCard({
   const getIcon = () => {
     const m = material.toUpperCase();
     if (m === "PET" || m === "HDPE" || m === "PLASTIC") {
-      return <Flame className="text-eco-secondary-600 h-6 w-6" />; // Flame for plastic (energy recovery)
+      return <Flame className="h-6 w-6 fill-orange-500 text-orange-500" />; // Flame (filled) for plastic
     }
-    if (m === "GLASS") {
-      return <Recycle className="text-eco-primary-600 h-6 w-6" />; // Recycle for glass
-    }
-    if (m === "ALUMINUM" || m === "METAL") {
-      return <Recycle className="text-eco-primary-600 h-6 w-6" />; // Recycle for metal
+    if (
+      m === "GLASS" ||
+      m === "ALUMINUM" ||
+      m === "METAL" ||
+      m === "CARDBOARD" ||
+      m === "PAPER"
+    ) {
+      return <Recycle className="h-6 w-6 text-emerald-600" />; // Green Recycle for others
     }
     return <Package className="text-eco-neutral-600 h-6 w-6" />;
   };
@@ -38,10 +41,15 @@ export function ActivityCard({
   const getIconBg = () => {
     const m = material.toUpperCase();
     if (m === "PET" || m === "HDPE" || m === "PLASTIC") {
-      return "bg-eco-secondary-100"; // Yellow for plastic
+      return "bg-amber-100"; // Yellow/Amber
     }
-    if (m === "GLASS" || m === "ALUMINUM") {
-      return "bg-eco-primary-100"; // Pink for recyclables
+    if (
+      m === "GLASS" ||
+      m === "ALUMINUM" ||
+      m === "CARDBOARD" ||
+      m === "PAPER"
+    ) {
+      return "bg-pink-100"; // Pink
     }
     return "bg-eco-neutral-100";
   };

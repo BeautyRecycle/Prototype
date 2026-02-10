@@ -49,7 +49,7 @@ export const rewardsRouter = createTRPCRouter({
         });
       }
 
-      if (!reward || !reward.isActive) {
+      if (!reward?.isActive) {
         throw new TRPCError({
           code: "NOT_FOUND",
           message: "Reward not found or no longer available.",
