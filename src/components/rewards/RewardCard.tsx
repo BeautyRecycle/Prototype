@@ -19,7 +19,7 @@ interface RewardCardProps {
 }
 
 /**
- * RewardCard — displays a single reward with redeem action.
+ * RewardCard — displays a single reward with redeem action and progress tracking.
  */
 export function RewardCard({
   reward,
@@ -31,68 +31,88 @@ export function RewardCard({
   const canAfford = userPoints >= reward.pointsCost;
   const isAvailable = reward.stock > 0 && !isRedeemed;
 
+  // Progress calculation
+  const progress = Math.min((userPoints / reward.pointsCost) * 100, 100);
+  const remainingPoints = Math.max(reward.pointsCost - userPoints, 0);
+
   return (
-    <Card variant="elevated" padding="none" className="overflow-hidden">
-      {/* Image */}
-      <div className="from-eco-primary-100 to-eco-secondary-100 relative h-40 bg-gradient-to-br">
-        <div className="flex h-full items-center justify-center text-5xl">
+    <Card
+      variant="elevated"
+      padding="none"
+      className="border-eco-neutral-100/60 flex h-full flex-col overflow-hidden bg-white shadow-sm transition-shadow hover:shadow-md"
+    >
+      <div className="flex flex-row items-start gap-4 p-4">
+        {/* Icon/Image Placeholder */}
+        <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-xl bg-orange-50 text-3xl">
           {getRewardEmoji(reward.name)}
         </div>
-        {isRedeemed && (
-          <div className="absolute inset-0 flex items-center justify-center bg-black/40">
-            <span className="bg-eco-secondary-500 rounded-full px-4 py-1.5 text-sm font-bold text-white">
-              ✓ Redeemed
+
+        <div className="min-w-0 flex-1">
+          <div className="flex items-start justify-between gap-2">
+            <h3 className="text-eco-neutral-900 truncate text-base font-bold">
+              {reward.name}
+            </h3>
+            {isRedeemed && (
+              <span className="rounded-full bg-pink-100 px-2 py-0.5 text-[10px] font-bold tracking-wider text-pink-700 uppercase">
+                Claimed
+              </span>
+            )}
+          </div>
+
+          <p className="mt-0.5 text-xs font-medium text-pink-500">
+            {reward.description}
+          </p>
+
+          <div className="mt-4 mb-1 flex items-end justify-between">
+            <span className="text-eco-neutral-500 text-xs font-semibold">
+              {Math.min(userPoints, reward.pointsCost)} / {reward.pointsCost}{" "}
+              points
+            </span>
+            <span className="text-xs font-bold text-pink-500">
+              {Math.round(progress)}%
             </span>
           </div>
-        )}
-      </div>
 
-      {/* Content */}
-      <div className="p-5">
-        <h3 className="text-eco-neutral-900 text-base font-semibold">
-          {reward.name}
-        </h3>
-        <p className="text-eco-neutral-500 mt-1 text-sm">
-          {reward.description}
-        </p>
+          {/* Progress Bar */}
+          <div className="bg-eco-neutral-200 h-2 w-full overflow-hidden rounded-full">
+            <div
+              className="h-full rounded-full bg-black transition-all duration-500 ease-out"
+              style={{ width: `${progress}%` }}
+            />
+          </div>
 
-        {/* Points & Stock */}
-        <div className="mt-4 flex items-center justify-between">
-          <span className="text-eco-points flex items-center gap-1 text-sm font-bold">
-            <span>⭐</span>
+          <div className="mt-2 text-xs font-bold text-pink-500">
             {reward.pointsCost} pts
-          </span>
-          <span className="text-eco-neutral-400 text-xs">
-            {reward.stock} left
-          </span>
+          </div>
         </div>
-
-        {/* Action */}
-        <Button
-          variant={isRedeemed ? "ghost" : canAfford ? "primary" : "outline"}
-          size="md"
-          className="mt-4 w-full"
-          onClick={() => onRedeem(reward.id)}
-          disabled={!isAvailable || !canAfford || isRedeeming}
-          isLoading={isRedeeming}
-        >
-          {isRedeemed
-            ? "Already Claimed"
-            : !canAfford
-              ? `Need ${reward.pointsCost - userPoints} more pts`
-              : "Redeem Reward"}
-        </Button>
       </div>
+
+      {/* Action - Only show if not redeemed, or show disabled state */}
+      {!isRedeemed && (
+        <div className="mt-auto px-4 pb-4">
+          <Button
+            variant={canAfford ? "primary" : "outline"}
+            size="sm"
+            className={`w-full ${!canAfford ? "text-eco-neutral-400 cursor-default justify-start border-none bg-transparent pl-0 font-normal hover:bg-transparent" : ""}`}
+            onClick={() => canAfford && onRedeem(reward.id)}
+            disabled={!isAvailable || isRedeeming || !canAfford}
+            isLoading={isRedeeming}
+          >
+            {!canAfford ? `Need ${remainingPoints} more pts` : "Redeem Reward"}
+          </Button>
+        </div>
+      )}
     </Card>
   );
 }
 
 function getRewardEmoji(name: string): string {
   const lower = name.toLowerCase();
-  if (lower.includes("bag") || lower.includes("tote")) return "🛍️";
+  if (lower.includes("bag") || lower.includes("tote")) return "👜";
   if (lower.includes("bottle") || lower.includes("water")) return "🧴";
   if (lower.includes("plant") || lower.includes("tree")) return "🌱";
-  if (lower.includes("discount") || lower.includes("coupon")) return "🏷️";
+  if (lower.includes("discount") || lower.includes("coupon")) return "🎫";
+  if (lower.includes("coffee")) return "☕";
   if (lower.includes("brush") || lower.includes("beauty")) return "💄";
   if (lower.includes("soap") || lower.includes("bar")) return "🧼";
   return "🎁";

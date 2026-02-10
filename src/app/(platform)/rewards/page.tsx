@@ -3,12 +3,14 @@
 import { useState } from "react";
 import { api } from "~/trpc/react";
 import { RewardCard } from "~/components/rewards/RewardCard";
+import { PointsHero } from "~/components/rewards/PointsHero";
+import { BonusBanner } from "~/components/rewards/BonusBanner";
+import { EarnPointsSection } from "~/components/rewards/EarnPointsSection";
 import {
   FadeIn,
   StaggerContainer,
   StaggerItem,
 } from "~/components/animations/MotionPrimitives";
-import { AnimatedCounter } from "~/components/animations/AnimatedCounter";
 
 export default function RewardsPage() {
   const [redeemingId, setRedeemingId] = useState<string | null>(null);
@@ -40,30 +42,31 @@ export default function RewardsPage() {
   }
 
   return (
-    <div>
+    <div className="mx-auto max-w-5xl pb-12">
       <FadeIn>
-        <div className="mb-8 flex items-end justify-between">
-          <div>
-            <h1 className="text-eco-neutral-900 text-2xl font-bold">
-              Eco Rewards
-            </h1>
-            <p className="text-eco-neutral-500 mt-1">
-              Redeem your points for sustainable rewards
-            </p>
-          </div>
-          <div className="text-right">
-            <p className="text-eco-neutral-500 text-sm">Your balance</p>
-            <div className="text-eco-points text-2xl font-bold">
-              <AnimatedCounter
-                value={profile?.totalPoints ?? 0}
-                suffix=" pts"
-              />
-            </div>
-          </div>
+        <div className="mb-6">
+          <h1 className="text-eco-primary-900 mb-2 text-3xl font-bold">
+            Your Rewards
+          </h1>
+          <p className="font-medium text-pink-500">
+            Redeem your points for gorgeous perks ✨
+          </p>
+        </div>
+        <PointsHero points={profile?.totalPoints ?? 0} />
+      </FadeIn>
+
+      <FadeIn delay={0.2}>
+        <div className="mt-8 mb-4">
+          <h2 className="text-eco-primary-900 text-xl font-bold">
+            Available Rewards
+          </h2>
         </div>
       </FadeIn>
 
-      <StaggerContainer className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <StaggerContainer
+        delay={0.3}
+        className="grid gap-6 sm:grid-cols-2 lg:grid-cols-2"
+      >
         {rewards?.map((reward) => (
           <StaggerItem key={reward.id}>
             <RewardCard
@@ -78,30 +81,41 @@ export default function RewardsPage() {
       </StaggerContainer>
 
       {rewards?.length === 0 && (
-        <div className="py-16 text-center">
+        <div className="bg-eco-neutral-50 border-eco-neutral-200 mt-6 rounded-xl border border-dashed py-16 text-center">
           <p className="text-eco-neutral-400 text-lg">
             No rewards available yet. Check back soon!
           </p>
         </div>
       )}
+
+      <FadeIn delay={0.4}>
+        <BonusBanner />
+      </FadeIn>
+
+      <FadeIn delay={0.6}>
+        <EarnPointsSection />
+      </FadeIn>
     </div>
   );
 }
 
 function RewardsSkeleton() {
   return (
-    <div className="animate-pulse">
-      <div className="mb-8 flex items-end justify-between">
-        <div>
-          <div className="bg-eco-neutral-200 h-8 w-48 rounded" />
-          <div className="bg-eco-neutral-100 mt-2 h-5 w-72 rounded" />
+    <div className="mx-auto max-w-5xl animate-pulse space-y-8">
+      {/* Hero Skeleton */}
+      <div className="bg-eco-neutral-200 h-64 rounded-2xl" />
+
+      {/* Banner Skeleton */}
+      <div className="bg-eco-neutral-100 h-24 rounded-xl" />
+
+      {/* Grid Skeleton */}
+      <div>
+        <div className="bg-eco-neutral-200 mb-6 h-8 w-48 rounded" />
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-2">
+          {[1, 2, 3, 4].map((i) => (
+            <div key={i} className="bg-eco-neutral-100 h-48 rounded-xl" />
+          ))}
         </div>
-        <div className="bg-eco-neutral-200 h-10 w-24 rounded" />
-      </div>
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {Array.from({ length: 6 }).map((_, i) => (
-          <div key={i} className="bg-eco-neutral-100 h-72 rounded-2xl" />
-        ))}
       </div>
     </div>
   );
