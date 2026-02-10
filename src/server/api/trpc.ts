@@ -6,9 +6,10 @@
  * TL;DR - This is where all the tRPC server stuff is created and plugged in. The pieces you will
  * need to use are documented accordingly near the end.
  */
-import { initTRPC } from "@trpc/server";
+import { initTRPC, TRPCError } from "@trpc/server";
 import superjson from "superjson";
 import { ZodError } from "zod";
+import { auth } from "@clerk/nextjs/server";
 
 import { db } from "~/server/db";
 
@@ -25,8 +26,11 @@ import { db } from "~/server/db";
  * @see https://trpc.io/docs/server/context
  */
 export const createTRPCContext = async (opts: { headers: Headers }) => {
+  const { userId } = await auth();
+
   return {
     db,
+    userId,
     ...opts,
   };
 };
@@ -104,3 +108,33 @@ const timingMiddleware = t.middleware(async ({ next, path }) => {
  * are logged in.
  */
 export const publicProcedure = t.procedure.use(timingMiddleware);
+
+/**
+ * Auth middleware — enforces that a valid Clerk userId exists in context.
+ * Throws UNAUTHORIZED if the user is not logged in.
+ */
+const enforceAuth = t.middleware(async ({ ctx, next }) => {
+  if (!ctx.userId) {
+    throw new TRPCError({
+      code: "UNAUTHORIZED",
+      message: "You must be signed in to perform this action.",
+    });
+  }
+
+  return next({
+    ctx: {
+      ...ctx,
+      userId: ctx.userId, // Narrow type from string | null to string
+    },
+  });
+});
+
+/**
+ * Protected (authenticated) procedure
+ *
+ * Guaranteed to have a valid userId in context.
+ * Use this for any mutation or query that requires authentication.
+ */
+export const protectedProcedure = t.procedure
+  .use(timingMiddleware)
+  .use(enforceAuth);
