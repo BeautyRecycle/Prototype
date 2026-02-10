@@ -64,7 +64,11 @@ export default function Scanner({ onScan, isActive = true }: ScannerProps) {
         .then(() => scanner.clear())
         .catch(() => {
           // If stop fails (e.g. never started), still try to clear
-          scanner.clear().catch(() => {});
+          try {
+            scanner.clear();
+          } catch (_) {
+            // ignore
+          }
         });
     };
   }, [isActive, onScan]);
