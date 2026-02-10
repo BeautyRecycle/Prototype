@@ -17,7 +17,7 @@ export function ImpactBanner({ co2SavedKg }: ImpactBannerProps) {
 
   return (
     <FadeIn>
-      <div className="bg-gradient-to-r from-eco-primary-100 via-eco-secondary-100 to-eco-secondary-200 relative overflow-hidden rounded-3xl p-8 shadow-lg">
+      <div className="bg-linear-to-r from-eco-primary-100 via-eco-secondary-100 to-eco-secondary-200 relative overflow-hidden rounded-3xl p-8 shadow-lg">
         {/* Content */}
         <div className="relative z-10">
           <div className="mb-3 flex items-center gap-2">
@@ -27,7 +27,7 @@ export function ImpactBanner({ co2SavedKg }: ImpactBannerProps) {
             </h3>
           </div>
           <p className="text-eco-neutral-800 text-base leading-relaxed">
-            You've helped reduce carbon emissions equivalent to driving{" "}
+            You&apos;ve helped reduce carbon emissions equivalent to driving{" "}
             <span className="text-eco-primary-700 font-bold">
               {kmEquivalent} km
             </span>{" "}

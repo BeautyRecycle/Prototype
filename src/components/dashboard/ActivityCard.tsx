@@ -1,7 +1,9 @@
 "use client";
 
+import { formatDistanceToNow } from "date-fns";
 import { FadeIn } from "~/components/animations/MotionPrimitives";
 import { type Material } from "~/types/domain";
+import { Flame, Recycle, Package, Box } from "lucide-react";
 
 interface ActivityCardProps {
   material: Material;
@@ -20,71 +22,49 @@ export function ActivityCard({
   pointsEarned,
 }: ActivityCardProps) {
   const getIcon = () => {
-    switch (material) {
-      case "plastic":
-      case "pet":
-      case "hdpe":
-      case "pp":
-        return "🔥"; // Flame for plastic (energy recovery)
-      case "glass":
-        return "♻️"; // Recycle for glass
-      case "cardboard":
-      case "paper":
-        return "♻️"; // Recycle for cardboard
-      case "aluminum":
-      case "metal":
-        return "♻️"; // Recycle for metal
-      default:
-        return "📦";
+    const m = material.toUpperCase();
+    if (m === "PET" || m === "HDPE" || m === "PLASTIC") {
+      return <Flame className="h-6 w-6 text-eco-secondary-600" />; // Flame for plastic (energy recovery)
     }
+    if (m === "GLASS") {
+      return <Recycle className="h-6 w-6 text-eco-primary-600" />; // Recycle for glass
+    }
+    if (m === "ALUMINUM" || m === "METAL") {
+      return <Recycle className="h-6 w-6 text-eco-primary-600" />; // Recycle for metal
+    }
+    return <Package className="h-6 w-6 text-eco-neutral-600" />;
   };
 
   const getIconBg = () => {
-    switch (material) {
-      case "plastic":
-      case "pet":
-      case "hdpe":
-      case "pp":
-        return "bg-eco-secondary-200"; // Yellow for plastic
-      case "glass":
-      case "cardboard":
-      case "paper":
-      case "aluminum":
-      case "metal":
-        return "bg-eco-primary-200"; // Pink for recyclables
-      default:
-        return "bg-eco-neutral-200";
+    const m = material.toUpperCase();
+    if (m === "PET" || m === "HDPE" || m === "PLASTIC") {
+      return "bg-eco-secondary-100"; // Yellow for plastic
     }
+    if (m === "GLASS" || m === "ALUMINUM") {
+      return "bg-eco-primary-100"; // Pink for recyclables
+    }
+    return "bg-eco-neutral-100";
   };
 
   const formatTimeAgo = (date: Date) => {
-    const seconds = Math.floor((Date.now() - date.getTime()) / 1000);
-    if (seconds < 60) return "just now";
-    const minutes = Math.floor(seconds / 60);
-    if (minutes < 60) return `${minutes} minute${minutes > 1 ? "s" : ""} ago`;
-    const hours = Math.floor(minutes / 60);
-    if (hours < 24) return `${hours} hour${hours > 1 ? "s" : ""} ago`;
-    const days = Math.floor(hours / 24);
-    if (days < 7) return `${days} day${days > 1 ? "s" : ""} ago`;
-    const weeks = Math.floor(days / 7);
-    return `${weeks} week${weeks > 1 ? "s" : ""} ago`;
+    return formatDistanceToNow(new Date(date), { addSuffix: true });
   };
 
   return (
     <FadeIn>
-      <div className="bg-eco-neutral-50 rounded-2xl p-5 shadow-sm transition-all hover:shadow-md">
-        <div className="flex items-center justify-between">
+      <div className="bg-white hover:bg-eco-primary-50 active:scale-98 relative overflow-hidden rounded-2xl p-5 shadow-sm transition-all duration-200 hover:shadow-md">
+        <div className="flex items-center justify-between relative z-10">
           {/* Left: Icon and details */}
           <div className="flex items-center gap-4">
             <div
-              className={`${getIconBg()} flex h-14 w-14 items-center justify-center rounded-full text-2xl`}
+              className={`${getIconBg()} flex h-14 w-14 items-center justify-center rounded-2xl transition-colors`}
             >
               {getIcon()}
             </div>
             <div>
-              <p className="text-eco-neutral-900 font-medium">{itemName}</p>
-              <p className="text-eco-neutral-500 text-sm">
-                {formatDistanceToNow(createdAt, { addSuffix: true })}
+              <p className="text-eco-neutral-900 font-bold text-base">{itemName}</p>
+              <p className="text-eco-neutral-500 text-xs font-medium uppercase tracking-wide">
+                {formatTimeAgo(createdAt)}
               </p>
             </div>
           </div>

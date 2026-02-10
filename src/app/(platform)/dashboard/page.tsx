@@ -34,7 +34,7 @@ export default function DashboardPage() {
   const energyGeneratedKwh = Math.round(plasticSavedKg * 10 * 100) / 100;
 
   return (
-    <div className="bg-gradient-to-br from-eco-primary-50 to-eco-secondary-50 min-h-screen">
+    <div className="bg-linear-to-br from-eco-primary-50 to-eco-secondary-50 min-h-screen">
       <div className="mx-auto max-w-6xl px-4 py-8">
         {/* Welcome Header */}
         <FadeIn>
@@ -42,7 +42,7 @@ export default function DashboardPage() {
             Welcome Back, Beauty!
           </h1>
           <p className="text-eco-primary-600 mb-8 text-lg">
-            Here's your gorgeous impact so far ✨
+            Here&apos;s your gorgeous impact so far ✨
           </p>
         </FadeIn>
 
@@ -94,7 +94,7 @@ export default function DashboardPage() {
               {recentScans.map((scan) => (
                 <ActivityCard
                   key={scan.id}
-                  material={scan.material}
+                  material={scan.material as any}
                   itemName={scan.packageId || "Unknown Package"}
                   createdAt={scan.createdAt}
                   pointsEarned={scan.pointsEarned}
@@ -175,7 +175,7 @@ function BoltIcon() {
 
 function DashboardSkeleton() {
   return (
-    <div className="bg-gradient-to-br from-eco-primary-50 to-eco-secondary-50 min-h-screen">
+    <div className="bg-linear-to-br from-eco-primary-50 to-eco-secondary-50 min-h-screen">
       <div className="mx-auto max-w-6xl animate-pulse px-4 py-8">
         <div className="bg-eco-neutral-200 mb-2 h-10 w-80 rounded" />
         <div className="bg-eco-neutral-100 mb-8 h-6 w-96 rounded" />
