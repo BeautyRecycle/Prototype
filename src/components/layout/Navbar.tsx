@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { UserButton, SignedIn, SignedOut } from "@clerk/nextjs";
 import { Button } from "~/components/ui/Button";
-import { Home, ScanLine, Gift, MapPin, Sparkles, Menu } from "lucide-react";
+import { Home, ScanLine, Gift, MapPin, Sparkles } from "lucide-react";
 
 const NAV_LINKS = [
   { href: "/", label: "Home", icon: <Home className="h-4 w-4" /> },
@@ -87,42 +87,6 @@ export function Navbar() {
             </Link>
           </div>
         </SignedOut>
-      </nav>
-    </header>
-  );
-}                      ? "bg-eco-primary-50 text-eco-primary-700"
-                      : "text-eco-neutral-600 hover:bg-eco-neutral-100 hover:text-eco-neutral-900"
-                  } `}
-                  aria-current={isActive ? "page" : undefined}
-                >
-                  <span aria-hidden="true">{link.icon}</span>
-                  <span className="hidden sm:inline">{link.label}</span>
-                </Link>
-              );
-            })}
-          </div>
-        </SignedIn>
-
-        {/* Auth */}
-        <div className="flex items-center gap-3">
-          <SignedIn>
-            <UserButton
-              afterSignOutUrl="/"
-              appearance={{
-                elements: {
-                  avatarBox: "h-9 w-9",
-                },
-              }}
-            />
-          </SignedIn>
-          <SignedOut>
-            <Link href="/sign-in">
-              <Button variant="primary" size="sm">
-                Sign In
-              </Button>
-            </Link>
-          </SignedOut>
-        </div>
       </nav>
     </header>
   );

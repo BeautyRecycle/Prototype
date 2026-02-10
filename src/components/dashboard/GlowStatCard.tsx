@@ -28,53 +28,53 @@ export function GlowStatCard({
   const getVariantStyles = () => {
     switch (variant) {
       case "gradient":
-        return "bg-gradient-to-br from-eco-primary-200 via-eco-primary-300 to-eco-primary-400";
+        return "bg-gradient-to-br from-eco-primary-300 via-eco-primary-400 to-eco-primary-500 text-white";
       case "pink":
-        return "bg-eco-primary-100";
+        return "bg-white border border-eco-primary-100";
       case "yellow":
-        return "bg-eco-secondary-100";
+        return "bg-white border border-eco-secondary-100";
       default:
-        return "bg-eco-neutral-100";
+        return "bg-white border border-eco-neutral-100";
     }
   };
 
   const getIconBg = () => {
     switch (variant) {
       case "gradient":
-        return "bg-white/60";
+        return "bg-white/20 text-white backdrop-blur-sm";
       case "pink":
-        return "bg-eco-primary-200";
+        return "bg-eco-primary-100 text-eco-primary-600";
       case "yellow":
-        return "bg-eco-secondary-200";
+        return "bg-eco-secondary-100 text-eco-secondary-600";
       default:
-        return "bg-eco-neutral-200";
+        return "bg-eco-neutral-100 text-eco-neutral-600";
     }
   };
 
   return (
     <FadeIn>
       <div
-        className={`${getVariantStyles()} relative overflow-hidden rounded-3xl p-6 shadow-lg transition-transform hover:scale-105`}
+        className={`${getVariantStyles()} relative overflow-hidden rounded-3xl p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl`}
       >
         {/* Icon */}
-        <div className={`${getIconBg()} mb-4 inline-flex h-14 w-14 items-center justify-center rounded-2xl`}>
-          <div className="text-eco-primary-700">{icon}</div>
+        <div className={`${getIconBg()} mb-5 inline-flex h-14 w-14 items-center justify-center rounded-2xl transition-transform hover:scale-110`}>
+          <div className="h-7 w-7 [&>svg]:h-full [&>svg]:w-full">{icon}</div>
         </div>
 
         {/* Title */}
-        <p className="text-eco-primary-900 mb-1 text-sm font-medium opacity-80">
+        <p className={`${variant === 'gradient' ? 'text-white/90' : 'text-eco-neutral-500'} mb-2 text-sm font-medium`}>
           {title}
         </p>
 
         {/* Value */}
-        <div className="mb-3 flex items-baseline gap-1">
+        <div className="mb-2 flex items-baseline gap-1">
           <AnimatedCounter
             value={value}
             decimals={decimals}
-            className="text-eco-primary-900 text-4xl font-bold"
+            className={`${variant === 'gradient' ? 'text-white' : 'text-eco-neutral-900'} text-4xl font-bold tracking-tight`}
           />
           {suffix && (
-            <span className="text-eco-primary-800 text-2xl font-semibold">
+            <span className={`${variant === 'gradient' ? 'text-white/90' : 'text-eco-neutral-500'} text-lg font-medium ml-1`}>
               {suffix}
             </span>
           )}
@@ -82,11 +82,16 @@ export function GlowStatCard({
 
         {/* Message */}
         {message && (
-          <p className="text-eco-primary-800 text-sm font-medium">{message}</p>
+          <p className={`${variant === 'gradient' ? 'text-white/80' : 'text-eco-primary-600'} mt-2 text-sm font-medium`}>{message}</p>
         )}
 
         {/* Decorative glow effect */}
-        <div className="absolute -right-8 -top-8 h-24 w-24 rounded-full bg-white/20 blur-2xl" />
+        {variant === "gradient" && (
+          <>
+             <div className="absolute -right-8 -top-8 h-32 w-32 rounded-full bg-white/10 blur-3xl transition-opacity group-hover:opacity-75" />
+             <div className="absolute -bottom-8 -left-8 h-24 w-24 rounded-full bg-eco-secondary-400/20 blur-2xl" />
+          </>
+        )}
       </div>
     </FadeIn>
   );
