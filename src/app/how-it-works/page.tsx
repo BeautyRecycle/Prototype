@@ -120,9 +120,9 @@ export default function HowItWorksPage() {
               </span>
             </h1>
             <p className="mx-auto mb-10 max-w-2xl text-lg leading-relaxed font-medium text-slate-600 md:text-xl">
-              Join the revolution in cosmetic waste. We&apos;ve made it incredibly
-              easy to responsibly dispose of your beauty products and get
-              rewarded for it.
+              Join the revolution in cosmetic waste. We&apos;ve made it
+              incredibly easy to responsibly dispose of your beauty products and
+              get rewarded for it.
             </p>
             <div className="flex justify-center gap-4">
               <Link href="/sign-up">
@@ -262,7 +262,8 @@ export default function HowItWorksPage() {
                   <p>
                     We cross-reference every scan against a database of
                     thousands of beauty products to provide verified recycling
-                    instructions specific to your municipality&apos;s capabilities.
+                    instructions specific to your municipality&apos;s
+                    capabilities.
                   </p>
 
                   <div className="grid grid-cols-2 gap-4 pt-6">
