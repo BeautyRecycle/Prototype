@@ -1,4 +1,11 @@
-import { TreeDeciduous, Car, Lightbulb, Recycle, Sparkles, type LucideIcon } from "lucide-react";
+import {
+  TreeDeciduous,
+  Car,
+  Lightbulb,
+  Recycle,
+  Sparkles,
+  type LucideIcon,
+} from "lucide-react";
 
 export function ImpactSection() {
   return (
