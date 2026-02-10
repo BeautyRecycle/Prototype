@@ -70,10 +70,10 @@ export default function Scanner({ onScan, isActive = true }: ScannerProps) {
   }, [isActive, onScan]);
 
   return (
-    <div className="mx-auto w-full h-full min-h-[400px]">
+    <div className="mx-auto h-full min-h-[400px] w-full">
       <div
         id="scanner-region"
-        className="overflow-hidden rounded-[1.5rem] h-full min-h-[400px]"
+        className="h-full min-h-[400px] overflow-hidden rounded-[1.5rem]"
       />
     </div>
   );
