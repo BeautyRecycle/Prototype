@@ -17,7 +17,7 @@ export function ImpactBanner({ co2SavedKg }: ImpactBannerProps) {
 
   return (
     <FadeIn>
-      <div className="bg-linear-to-r from-eco-primary-100 via-eco-secondary-100 to-eco-secondary-200 relative overflow-hidden rounded-3xl p-8 shadow-lg">
+      <div className="from-eco-primary-100 via-eco-secondary-100 to-eco-secondary-200 relative overflow-hidden rounded-3xl bg-linear-to-r p-8 shadow-lg">
         {/* Content */}
         <div className="relative z-10">
           <div className="mb-3 flex items-center gap-2">
@@ -37,8 +37,8 @@ export function ImpactBanner({ co2SavedKg }: ImpactBannerProps) {
         </div>
 
         {/* Decorative elements */}
-        <div className="absolute -right-12 -top-12 h-48 w-48 rounded-full bg-white/20 blur-3xl" />
-        <div className="absolute -bottom-8 -left-8 h-32 w-32 rounded-full bg-eco-primary-300/30 blur-2xl" />
+        <div className="absolute -top-12 -right-12 h-48 w-48 rounded-full bg-white/20 blur-3xl" />
+        <div className="bg-eco-primary-300/30 absolute -bottom-8 -left-8 h-32 w-32 rounded-full blur-2xl" />
       </div>
     </FadeIn>
   );

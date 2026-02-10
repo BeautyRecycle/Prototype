@@ -24,15 +24,15 @@ export function ActivityCard({
   const getIcon = () => {
     const m = material.toUpperCase();
     if (m === "PET" || m === "HDPE" || m === "PLASTIC") {
-      return <Flame className="h-6 w-6 text-eco-secondary-600" />; // Flame for plastic (energy recovery)
+      return <Flame className="text-eco-secondary-600 h-6 w-6" />; // Flame for plastic (energy recovery)
     }
     if (m === "GLASS") {
-      return <Recycle className="h-6 w-6 text-eco-primary-600" />; // Recycle for glass
+      return <Recycle className="text-eco-primary-600 h-6 w-6" />; // Recycle for glass
     }
     if (m === "ALUMINUM" || m === "METAL") {
-      return <Recycle className="h-6 w-6 text-eco-primary-600" />; // Recycle for metal
+      return <Recycle className="text-eco-primary-600 h-6 w-6" />; // Recycle for metal
     }
-    return <Package className="h-6 w-6 text-eco-neutral-600" />;
+    return <Package className="text-eco-neutral-600 h-6 w-6" />;
   };
 
   const getIconBg = () => {
@@ -52,8 +52,8 @@ export function ActivityCard({
 
   return (
     <FadeIn>
-      <div className="bg-white hover:bg-eco-primary-50 active:scale-98 relative overflow-hidden rounded-2xl p-5 shadow-sm transition-all duration-200 hover:shadow-md">
-        <div className="flex items-center justify-between relative z-10">
+      <div className="hover:bg-eco-primary-50 relative overflow-hidden rounded-2xl bg-white p-5 shadow-sm transition-all duration-200 hover:shadow-md active:scale-98">
+        <div className="relative z-10 flex items-center justify-between">
           {/* Left: Icon and details */}
           <div className="flex items-center gap-4">
             <div
@@ -62,8 +62,10 @@ export function ActivityCard({
               {getIcon()}
             </div>
             <div>
-              <p className="text-eco-neutral-900 font-bold text-base">{itemName}</p>
-              <p className="text-eco-neutral-500 text-xs font-medium uppercase tracking-wide">
+              <p className="text-eco-neutral-900 text-base font-bold">
+                {itemName}
+              </p>
+              <p className="text-eco-neutral-500 text-xs font-medium tracking-wide uppercase">
                 {formatTimeAgo(createdAt)}
               </p>
             </div>

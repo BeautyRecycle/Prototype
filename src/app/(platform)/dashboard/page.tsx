@@ -26,7 +26,7 @@ export default function DashboardPage() {
   const plasticSavedKg =
     stats?.scansByMaterial
       .filter((m) =>
-        ["plastic", "pet", "hdpe", "pp"].includes(m.material.toLowerCase())
+        ["plastic", "pet", "hdpe", "pp"].includes(m.material.toLowerCase()),
       )
       .reduce((sum, m) => sum + m.co2SavedKg, 0) ?? 0;
 
@@ -34,7 +34,7 @@ export default function DashboardPage() {
   const energyGeneratedKwh = Math.round(plasticSavedKg * 10 * 100) / 100;
 
   return (
-    <div className="bg-linear-to-br from-eco-primary-50 to-eco-secondary-50 min-h-screen">
+    <div className="from-eco-primary-50 to-eco-secondary-50 min-h-screen bg-linear-to-br">
       <div className="mx-auto max-w-6xl px-4 py-8">
         {/* Welcome Header */}
         <FadeIn>
@@ -175,7 +175,7 @@ function BoltIcon() {
 
 function DashboardSkeleton() {
   return (
-    <div className="bg-linear-to-br from-eco-primary-50 to-eco-secondary-50 min-h-screen">
+    <div className="from-eco-primary-50 to-eco-secondary-50 min-h-screen bg-linear-to-br">
       <div className="mx-auto max-w-6xl animate-pulse px-4 py-8">
         <div className="bg-eco-neutral-200 mb-2 h-10 w-80 rounded" />
         <div className="bg-eco-neutral-100 mb-8 h-6 w-96 rounded" />
