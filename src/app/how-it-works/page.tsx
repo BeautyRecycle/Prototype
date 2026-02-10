@@ -185,7 +185,7 @@ export default function HowItWorksPage() {
                     {step.description}
                   </p>
                   <div
-                    className={`absolute bottom-0 left-0 h-1.5 w-0 transition-all duration-500 group-hover:w-full ${step.color.replace("bg-", "bg-").replace("text-", "-500").split(" ")[0].replace("-50", "-500")}`}
+                    className={`absolute bottom-0 left-0 h-1.5 w-0 transition-all duration-500 group-hover:w-full ${step.color.replace("bg-", "bg-").replace("text-", "-500").split(" ")[0]?.replace("-50", "-500") ?? ""}`}
                   />
                 </div>
               </StaggerItem>
