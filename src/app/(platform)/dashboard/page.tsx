@@ -21,7 +21,35 @@ export default function DashboardPage() {
     return <DashboardSkeleton />;
   }
 
-  const recentScans = scansData?.scans ?? [];
+  // ── Mock Data for Prototype (Matches Design) ──
+  const MOCK_SCANS = [
+    {
+      id: "mock-1",
+      material: "CARDBOARD",
+      packageId: "Cardboard Box",
+      createdAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000), // 2 days ago
+      pointsEarned: 10,
+    },
+    {
+      id: "mock-2",
+      material: "PLASTIC",
+      packageId: "Plastic Container",
+      createdAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000), // 5 days ago
+      pointsEarned: 8,
+    },
+    {
+      id: "mock-3",
+      material: "GLASS",
+      packageId: "Glass Jar",
+      createdAt: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000), // 1 week ago
+      pointsEarned: 12,
+    },
+  ];
+
+  const recentScans =
+    scansData?.scans && scansData.scans.length > 0
+      ? scansData.scans
+      : MOCK_SCANS;
 
   // Calculate plastic saved (sum of all plastic-type materials)
   const plasticSavedKg =
@@ -88,12 +116,12 @@ export default function DashboardPage() {
         </div>
 
         {/* Recent Activity */}
-        <div>
-          <h2 className="text-eco-primary-800 mb-6 text-2xl font-bold">
+        <div className="mt-8">
+          <h2 className="text-eco-primary-900 mb-6 text-2xl font-bold tracking-tight">
             Recent Activity
           </h2>
           {recentScans.length > 0 ? (
-            <div className="grid gap-6 sm:grid-cols-3">
+            <div className="grid gap-4 md:gap-6 sm:grid-cols-3">
               {recentScans.map((scan) => (
                 <ActivityCard
                   key={scan.id}
