@@ -25,11 +25,11 @@ export function Navbar() {
           href="/"
           className="group flex items-center gap-2 transition-opacity hover:opacity-90"
         >
-          <div className="bg-gradient-to-br from-eco-primary-400 to-eco-primary-600 shadow-eco-primary-200/50 flex h-10 w-10 items-center justify-center rounded-xl text-white shadow-lg transition-transform group-hover:scale-105">
+          <div className="from-eco-primary-400 to-eco-primary-600 shadow-eco-primary-200/50 flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br text-white shadow-lg transition-transform group-hover:scale-105">
             <Sparkles className="h-5 w-5" />
           </div>
           <div className="hidden sm:block">
-            <div className="text-eco-primary-900 font-bold leading-tight">
+            <div className="text-eco-primary-900 leading-tight font-bold">
               EcoGlow
             </div>
             <div className="text-eco-primary-500 text-[10px] font-medium tracking-wide uppercase">
@@ -49,11 +49,17 @@ export function Navbar() {
                   href={link.href}
                   className={`inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition-all duration-200 ${
                     isActive
-                      ? "bg-eco-primary-50 text-eco-primary-600 shadow-xs ring-1 ring-inset ring-eco-primary-100"
+                      ? "bg-eco-primary-50 text-eco-primary-600 ring-eco-primary-100 shadow-xs ring-1 ring-inset"
                       : "text-eco-neutral-600 hover:bg-eco-neutral-50 hover:text-eco-primary-600"
                   }`}
                 >
-                  <span className={isActive ? "text-eco-primary-500" : "text-eco-neutral-400 group-hover:text-eco-primary-500"}>
+                  <span
+                    className={
+                      isActive
+                        ? "text-eco-primary-500"
+                        : "text-eco-neutral-400 group-hover:text-eco-primary-500"
+                    }
+                  >
                     {link.icon}
                   </span>
                   {link.label}
@@ -61,13 +67,14 @@ export function Navbar() {
               );
             })}
           </div>
-          
-          <div className="ml-4 border-l border-eco-neutral-200 pl-4">
-            <UserButton 
+
+          <div className="border-eco-neutral-200 ml-4 border-l pl-4">
+            <UserButton
               appearance={{
                 elements: {
-                  avatarBox: "h-9 w-9 ring-2 ring-eco-primary-100 transition-shadow hover:ring-eco-primary-300",
-                }
+                  avatarBox:
+                    "h-9 w-9 ring-2 ring-eco-primary-100 transition-shadow hover:ring-eco-primary-300",
+                },
               }}
             />
           </div>
@@ -81,7 +88,10 @@ export function Navbar() {
               </Button>
             </Link>
             <Link href="/sign-up">
-              <Button size="sm" className="bg-gradient-to-r from-eco-primary-500 to-eco-primary-600 text-white shadow-md hover:shadow-lg">
+              <Button
+                size="sm"
+                className="from-eco-primary-500 to-eco-primary-600 bg-gradient-to-r text-white shadow-md hover:shadow-lg"
+              >
                 Join EcoGlow
               </Button>
             </Link>

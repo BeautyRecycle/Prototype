@@ -57,12 +57,16 @@ export function GlowStatCard({
         className={`${getVariantStyles()} relative overflow-hidden rounded-3xl p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl`}
       >
         {/* Icon */}
-        <div className={`${getIconBg()} mb-5 inline-flex h-14 w-14 items-center justify-center rounded-2xl transition-transform hover:scale-110`}>
+        <div
+          className={`${getIconBg()} mb-5 inline-flex h-14 w-14 items-center justify-center rounded-2xl transition-transform hover:scale-110`}
+        >
           <div className="h-7 w-7 [&>svg]:h-full [&>svg]:w-full">{icon}</div>
         </div>
 
         {/* Title */}
-        <p className={`${variant === 'gradient' ? 'text-white/90' : 'text-eco-neutral-500'} mb-2 text-sm font-medium`}>
+        <p
+          className={`${variant === "gradient" ? "text-white/90" : "text-eco-neutral-500"} mb-2 text-sm font-medium`}
+        >
           {title}
         </p>
 
@@ -71,10 +75,12 @@ export function GlowStatCard({
           <AnimatedCounter
             value={value}
             decimals={decimals}
-            className={`${variant === 'gradient' ? 'text-white' : 'text-eco-neutral-900'} text-4xl font-bold tracking-tight`}
+            className={`${variant === "gradient" ? "text-white" : "text-eco-neutral-900"} text-4xl font-bold tracking-tight`}
           />
           {suffix && (
-            <span className={`${variant === 'gradient' ? 'text-white/90' : 'text-eco-neutral-500'} text-lg font-medium ml-1`}>
+            <span
+              className={`${variant === "gradient" ? "text-white/90" : "text-eco-neutral-500"} ml-1 text-lg font-medium`}
+            >
               {suffix}
             </span>
           )}
@@ -82,14 +88,18 @@ export function GlowStatCard({
 
         {/* Message */}
         {message && (
-          <p className={`${variant === 'gradient' ? 'text-white/80' : 'text-eco-primary-600'} mt-2 text-sm font-medium`}>{message}</p>
+          <p
+            className={`${variant === "gradient" ? "text-white/80" : "text-eco-primary-600"} mt-2 text-sm font-medium`}
+          >
+            {message}
+          </p>
         )}
 
         {/* Decorative glow effect */}
         {variant === "gradient" && (
           <>
-             <div className="absolute -right-8 -top-8 h-32 w-32 rounded-full bg-white/10 blur-3xl transition-opacity group-hover:opacity-75" />
-             <div className="absolute -bottom-8 -left-8 h-24 w-24 rounded-full bg-eco-secondary-400/20 blur-2xl" />
+            <div className="absolute -top-8 -right-8 h-32 w-32 rounded-full bg-white/10 blur-3xl transition-opacity group-hover:opacity-75" />
+            <div className="bg-eco-secondary-400/20 absolute -bottom-8 -left-8 h-24 w-24 rounded-full blur-2xl" />
           </>
         )}
       </div>
