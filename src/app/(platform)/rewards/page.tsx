@@ -64,7 +64,6 @@ export default function RewardsPage() {
       </FadeIn>
 
       <StaggerContainer
-        delay={0.3}
         className="grid gap-6 sm:grid-cols-2 lg:grid-cols-2"
       >
         {rewards?.map((reward) => (
